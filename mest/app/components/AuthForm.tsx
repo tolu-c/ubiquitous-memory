@@ -4,10 +4,12 @@ import { FormEvent, useCallback, useState } from "react";
 import { AuthType, FormData } from "~/types/types";
 import { InputField } from "./ui/form/InputField";
 import {
+  ArrowRightOnRectangleIcon,
   EnvelopeIcon,
   LockClosedIcon,
   UserIcon,
 } from "@heroicons/react/20/solid";
+import { Button } from "./ui/form/Button";
 
 export const AuthForm = () => {
   const [authType, setAuthType] = useState<AuthType>("LOGIN");
@@ -88,7 +90,17 @@ export const AuthForm = () => {
             }}
             required
           />
-          <button type="submit">login</button>
+          <Button
+            title="Login"
+            type="submit"
+            borderRadius="sm"
+            color="cta"
+            size="lg"
+            icon={{
+              position: "right",
+              src: <ArrowRightOnRectangleIcon className="w-6 h-6" />,
+            }}
+          />
         </form>
       </div>
     </div>

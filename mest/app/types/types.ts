@@ -18,17 +18,20 @@ export interface InputProps {
 export interface FormData {
   [key: string]: string;
 }
+export type Sizes = "xs" | "sm" | "md" | "lg" | "xl";
 
-export interface Button {
+export interface ButtonProps {
   type: "button" | "submit";
   title: string;
   onClick?: () => void;
-  color?: "";
-  size?: "xs" | "sm" | "base" | "md" | "lg";
-  borderRadius?: "flat" | "pill" | "round";
+  color?: "cta" | "primary" | "secondary";
+  size?: Sizes;
+  borderRadius?: Sizes;
   icon?: {
     src: ReactNode;
     position: "left" | "right";
-    color?: "primary" | "secondary" | "base";
+    // color?: "primary" | "secondary" | "base";
   };
+  variant?: "fill" | "outline" | "default" | "light";
+  compact?: boolean;
 }

@@ -22,6 +22,7 @@ export const InputField = ({
       setErrorText(`${name} cannot be empty`);
       return false;
     }
+
     if (type === "email") {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const isEmailValid: boolean = emailRegex.test(value);
@@ -74,7 +75,7 @@ export const InputField = ({
           onChange={handleChange}
           className={`${
             icon ? "pl-7" : "px-2"
-          } text-slate-600 font-medium text-base placeholder:text-slate-500 placeholder:text-sm border border-slate-600 focus:outline-none focus:border-slate-900 focus:ring-slate-900 focus:ring-1 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600 invalid:text-red-600 invalid:border-red-500`}
+          } text-slate-600 font-medium text-base placeholder:text-slate-500 placeholder:text-sm border border-slate-600 focus:outline-none focus:border-slate-900 focus:ring-slate-900 focus:ring-1 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600`}
         />
       </div>
       {!isInputValid && (

@@ -18,16 +18,28 @@ export const InputField = ({
   const [isInputValid, setIsInputValid] = useState<boolean>(true);
 
   const validateInput = (value: string): boolean => {
-    if (type === "text") {
-      if (required && value.trim() === "") {
-        setErrorText(`${name} cannot be empty`);
+    if (required && value.trim() === "") {
+      setErrorText(`${name} cannot be empty`);
+      return false;
+    }
+    if (type === "email") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const isEmailValid: boolean = emailRegex.test(value);
+      if (!isEmailValid) {
+        setErrorText("Please enter a valid email address");
         return false;
+      } else {
+        return true;
       }
+    }
+
+    if (type === "text" || type === "password") {
       if (minLength && value.trim().length < minLength) {
         setErrorText(`${name} has to be at least ${minLength} characters`);
         return false;
       }
     }
+
     return true;
   };
 
@@ -40,9 +52,17 @@ export const InputField = ({
 
   return (
     <div className="flex flex-col gap-1">
-      <div className="flex flex-col gap-2">
-        {label && <label htmlFor={name}>{label}</label>}
-        {icon && icon.position === "left" && <span>{icon.src}</span>}
+      <div className="flex flex-col gap-2 relative">
+        {label && (
+          <label htmlFor={name} className="text-lg font-semibold text-gray-800">
+            {label}
+          </label>
+        )}
+        {icon && (
+          <span className="absolute bottom-3 left-1.5 text-gray-800">
+            {icon.src}
+          </span>
+        )}
         <input
           type={type}
           name={name}
@@ -52,10 +72,14 @@ export const InputField = ({
           minLength={minLength}
           ref={inputRef}
           onChange={handleChange}
+          className={`${
+            icon ? "pl-7" : "px-2"
+          } text-slate-600 font-medium text-base placeholder:text-slate-500 placeholder:text-sm border border-slate-600 focus:outline-none focus:border-slate-900 focus:ring-slate-900 focus:ring-1 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600 invalid:text-red-600 invalid:border-red-500`}
         />
-        {icon && icon.position === "left" && <span>{icon.src}</span>}
       </div>
-      {!isInputValid && <p>{errorText}</p>}
+      {!isInputValid && (
+        <p className="text-xss text-red-500 font-medium">{errorText}</p>
+      )}
     </div>
   );
 };

@@ -10,8 +10,7 @@ export interface InputProps {
   placeholder?: string;
   required?: boolean;
   icon?: {
-    src: string;
-    position: "left" | "right";
+    src: ReactNode;
   };
   minLength?: number;
 }
@@ -28,7 +27,8 @@ export interface Button {
   size?: "xs" | "sm" | "base" | "md" | "lg";
   borderRadius?: "flat" | "pill" | "round";
   icon?: {
-    src: string;
+    src: ReactNode;
     position: "left" | "right";
+    color?: "primary" | "secondary" | "base";
   };
 }

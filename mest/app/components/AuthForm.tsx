@@ -3,6 +3,11 @@
 import { FormEvent, useCallback, useState } from "react";
 import { AuthType, FormData } from "~/types/types";
 import { InputField } from "./ui/form/InputField";
+import {
+  EnvelopeIcon,
+  LockClosedIcon,
+  UserIcon,
+} from "@heroicons/react/20/solid";
 
 export const AuthForm = () => {
   const [authType, setAuthType] = useState<AuthType>("LOGIN");
@@ -55,7 +60,35 @@ export const AuthForm = () => {
             placeholder="Username"
             minLength={3}
             onChange={handleInputChange}
+            icon={{
+              src: <UserIcon className="w-4 h-4" />,
+            }}
+            required
           />
+          <InputField
+            type="email"
+            label="Email"
+            name="email"
+            placeholder="Email"
+            onChange={handleInputChange}
+            icon={{
+              src: <EnvelopeIcon className="w-4 h-4" />,
+            }}
+            required
+          />
+          <InputField
+            type="password"
+            label="Password"
+            name="password"
+            placeholder="password"
+            minLength={8}
+            onChange={handleInputChange}
+            icon={{
+              src: <LockClosedIcon className="w-4 h-4" />,
+            }}
+            required
+          />
+          <button type="submit">login</button>
         </form>
       </div>
     </div>

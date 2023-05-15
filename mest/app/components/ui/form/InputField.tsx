@@ -55,7 +55,7 @@ export const InputField = ({
     <div className="flex flex-col gap-1">
       <div className="flex flex-col gap-2 relative">
         {label && (
-          <label htmlFor={name} className="text-lg font-semibold text-gray-800">
+          <label htmlFor={name} className="text-sm font-medium text-gray-800">
             {label}
           </label>
         )}

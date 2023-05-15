@@ -9,6 +9,7 @@ export const Button = ({
   borderRadius,
   variant,
   compact,
+  disabled,
   onClick,
 }: ButtonProps) => {
   const sizeStyle =
@@ -52,8 +53,9 @@ export const Button = ({
   return (
     <button
       type={type}
-      className={`p-2 text-center text-white capitalize font-medium focus:outline-none flex items-center justify-center gap-2 ${sizeStyle} ${colorStyle} ${borderRadiusStyle} ${variantStyle} ${compactStyle}`}
+      className={`p-2 text-center text-white capitalize font-medium focus:outline-none flex items-center justify-center gap-2 disabled:bg-slate-800 disabled:text-slate-50 disabled:cursor-not-allowed disabled:opacity-50 ${sizeStyle} ${colorStyle} ${borderRadiusStyle} ${variantStyle} ${compactStyle}`}
       onClick={onClick}
+      disabled={disabled}
     >
       {icon && icon.position === "left" && (
         <span className="text-inherit">{icon.src}</span>

@@ -10,6 +10,9 @@ import {
   UserIcon,
 } from "@heroicons/react/20/solid";
 import { Button } from "./ui/form/Button";
+import { AuthSocialButton } from "./ui/AuthSocialButton";
+import { GitHub } from "./svg/Github";
+import { Google } from "./svg/Google";
 
 export const AuthForm = () => {
   const [authType, setAuthType] = useState<AuthType>("LOGIN");
@@ -55,18 +58,21 @@ export const AuthForm = () => {
     <div className="mt-8 mx-auto w-full max-w-md">
       <div className="bg-white px-4 py-8 shadow rounded-lg sm:px-10">
         <form className="space-y-6" onSubmit={onSubmit}>
-          <InputField
-            type="text"
-            label="Username"
-            name="username"
-            placeholder="Username"
-            minLength={3}
-            onChange={handleInputChange}
-            icon={{
-              src: <UserIcon className="w-4 h-4" />,
-            }}
-            required
-          />
+          {authType === "REGISTER" && (
+            <InputField
+              type="text"
+              label="Username"
+              name="username"
+              placeholder="Username"
+              minLength={3}
+              onChange={handleInputChange}
+              icon={{
+                src: <UserIcon className="w-4 h-4" />,
+              }}
+              required
+            />
+          )}
+
           <InputField
             type="email"
             label="Email"
@@ -91,7 +97,7 @@ export const AuthForm = () => {
             required
           />
           <Button
-            title="Login"
+            title={authType === "REGISTER" ? "Register" : "Login"}
             type="submit"
             borderRadius="sm"
             color="cta"
@@ -100,8 +106,48 @@ export const AuthForm = () => {
               position: "right",
               src: <ArrowRightOnRectangleIcon className="w-6 h-6" />,
             }}
+            disabled={isLoading}
           />
         </form>
+
+        <div className="mt-6">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300" />
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="bg-white px-2 text-gray-500">
+                Or continue with
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-6 flex gap-2">
+            <AuthSocialButton
+              icon={<GitHub />}
+              onClick={() => {
+                socialActions("github");
+              }}
+            />
+            <AuthSocialButton
+              icon={<Google />}
+              onClick={() => {
+                socialActions("google");
+              }}
+            />
+          </div>
+
+          <div className="flex gap-2 justify-center text-sm mt-6 text-gray-500">
+            <div>
+              {authType === "LOGIN"
+                ? "New to Messenger?"
+                : "Already have an account?"}
+            </div>
+            <p className="underline cursor-pointer" onClick={toggleAuthType}>
+              {authType === "LOGIN" ? "Create an account" : "Login"}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

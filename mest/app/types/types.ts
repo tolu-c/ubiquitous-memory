@@ -34,4 +34,10 @@ export interface ButtonProps {
   };
   variant?: "fill" | "outline" | "default" | "light";
   compact?: boolean;
+  disabled?: boolean;
+}
+
+export interface AuthSocialButtonProps {
+  icon: ReactNode;
+  onClick: () => void;
 }

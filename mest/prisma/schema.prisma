@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
+  hashedPassword String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  conversationIDs String[]       @db.ObjectId
+  conversations   Conversation[] @relation(fields: [conversationIDs], references: [id])
+
+  seenMessageIDs String[]  @db.ObjectId
+  seenMessages   Message[] @relation("Seen", fields: [seenMessageIDs], references: [id])
+
+  accounts Account[]
+  messages Message[]
+}
+
+model Conversation {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt     DateTime @default(now())
+  lastMessageAt DateTime @default(now())
+  name          String?
+  isGroup       Boolean?
+
+  messagesIDs String[]  @db.ObjectId
+  messages    Message[]
+
+  userIDs String[] @db.ObjectId
+  users   User[]   @relation(fields: [userIDs], references: [id])
+}
+
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  body      String?
+  image     String?
+  createdAt DateTime @default(now())
+
+  seenIDs String[] @db.ObjectId
+  seen    User[]   @relation("Seen", fields: [seenIDs], references: [id])
+
+  conversationID String       @db.ObjectId
+  conversation   Conversation @relation(fields: [conversationID], references: [id], onDelete: Cascade)
+
+  senderID String @db.ObjectId
+  sender   User   @relation(fields: [senderID], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userID            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountID String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  user User @relation(fields: [userID], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountID])
+}

@@ -69,6 +69,7 @@ export const AuthForm = () => {
               icon={{
                 src: <UserIcon className="w-4 h-4" />,
               }}
+              disabled={isLoading}
               required
             />
           )}
@@ -82,6 +83,7 @@ export const AuthForm = () => {
             icon={{
               src: <EnvelopeIcon className="w-4 h-4" />,
             }}
+            disabled={isLoading}
             required
           />
           <InputField
@@ -94,6 +96,7 @@ export const AuthForm = () => {
             icon={{
               src: <LockClosedIcon className="w-4 h-4" />,
             }}
+            disabled={isLoading}
             required
           />
           <Button

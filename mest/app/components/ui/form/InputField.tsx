@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 import { InputProps } from "~/types/types";
 
-export const InputField = ({
+export const InputField: FC<InputProps> = ({
   name,
   type,
   onChange,
@@ -12,7 +12,8 @@ export const InputField = ({
   icon,
   placeholder,
   minLength,
-}: InputProps) => {
+  disabled,
+}) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [errorText, setErrorText] = useState<string>("");
   const [isInputValid, setIsInputValid] = useState<boolean>(true);
@@ -73,6 +74,7 @@ export const InputField = ({
           minLength={minLength}
           ref={inputRef}
           onChange={handleChange}
+          disabled={disabled}
           className={`${
             icon ? "pl-7" : "px-2"
           } text-slate-600 font-medium text-base placeholder:text-slate-500 placeholder:text-sm border border-slate-600 focus:outline-none focus:border-slate-900 focus:ring-slate-900 focus:ring-1 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600`}

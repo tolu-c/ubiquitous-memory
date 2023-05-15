@@ -13,6 +13,7 @@ export interface InputProps {
     src: ReactNode;
   };
   minLength?: number;
+  disabled?: boolean;
 }
 
 export interface FormData {

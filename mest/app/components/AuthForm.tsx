@@ -143,7 +143,7 @@ export const AuthForm = () => {
           <div className="flex gap-2 justify-center text-sm mt-6 text-gray-500">
             <div>
               {authType === "LOGIN"
-                ? "New to Messenger?"
+                ? "New to Mest?"
                 : "Already have an account?"}
             </div>
             <p className="underline cursor-pointer" onClick={toggleAuthType}>

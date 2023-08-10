@@ -13,6 +13,8 @@ import { Button } from "./ui/form/Button";
 import { AuthSocialButton } from "./ui/AuthSocialButton";
 import { GitHub } from "./svg/Github";
 import { Google } from "./svg/Google";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export const AuthForm = () => {
   const [authType, setAuthType] = useState<AuthType>("LOGIN");
@@ -31,10 +33,15 @@ export const AuthForm = () => {
     setIsLoading(true);
     if (authType === "REGISTER") {
       // register function
+      axios
+        .post("/api/register", formData)
+        .catch(() => toast.error("Something went wrong"))
+        .finally(() => setIsLoading(false));
     } else if (authType === "LOGIN") {
       // login function
+      // signIn
     }
-    console.log({ formData });
+    // console.log({ formData });
   };
 
   const handleInputChange = (value: string, name: string) => {
@@ -46,6 +53,7 @@ export const AuthForm = () => {
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // console.log(formValues);
     handleSubmit(formValues);
   };
 
@@ -61,9 +69,9 @@ export const AuthForm = () => {
           {authType === "REGISTER" && (
             <InputField
               type="text"
-              label="Username"
-              name="username"
-              placeholder="Username"
+              label="Name"
+              name="name"
+              placeholder="Name"
               minLength={3}
               onChange={handleInputChange}
               icon={{
